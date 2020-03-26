@@ -13,7 +13,7 @@ app.get("/campgrounds", (req,res) => {
 });
 
 app.get("/*", (req,res) => {
-    res.send("Error: page not found :(");
+    res.render("pagenotfound");
 })
 
 var PORT = process.env.PORT || 3000;
