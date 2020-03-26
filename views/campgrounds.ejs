@@ -4,4 +4,11 @@
 
 <a href="/">Home</a>
 
+<ul>
+    <% campgrounds.forEach(campground => { %>
+        <li><%= campground.name %></li>
+        <img src="<%= campground.picture %>">
+    <% }) %>
+</ul>
+
 <%- include("partials/footer"); %>
