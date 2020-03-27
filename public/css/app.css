@@ -1,3 +1,11 @@
 img {
     width: 30%;
 }
+
+body {
+    text-align: center;
+}
+
+.jumbotron {
+    font-size: xx-large;
+}
