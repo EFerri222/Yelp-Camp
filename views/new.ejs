@@ -1,0 +1,19 @@
+<%- include("partials/header"); %>
+
+<!-- <style>
+    body {
+        text-align: center;
+    }
+</style> -->
+
+<h1>Add New Campground</h1>
+
+<a href="/">Home</a><br><br>
+
+<form action="/campgrounds" method="POST">
+    <input type="text" name="name" placeholder="name">
+    <input type="text" name="image" placeholder="image url">
+    <button>Submit</button>
+</form>
+
+<%- include("partials/footer"); %>
