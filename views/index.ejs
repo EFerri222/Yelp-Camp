@@ -10,17 +10,17 @@
     <!-- <a href="/">Home</a> -->
     
     <div class="row align-items-center">
-        <% for(var i = 0; i < campgrounds.length; i++) { %>
+        <% campgrounds.forEach(campground => { %>
             <div class="col-12 col-sm-6 col-md-3 col-lg-4">
                 <div class="card mx-auto mb-3" style="width: 18rem;">
-                    <img src="<%= campgrounds[i].image %>" class="card-img-top" alt="...">
+                    <img src="<%= campground.image %>" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title"><%= campgrounds[i].name %></h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <h5 class="card-title"><%= campground.name %></h5>
+                        <a href="/campgrounds/<%= campground._id %>" class="btn btn-sm btn-info">More Info</a>
                     </div>
                 </div>
             </div>
-        <% } %>
+        <% }); %>
     </div>
 </div>
 
