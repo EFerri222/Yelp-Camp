@@ -6,6 +6,13 @@
 
 <p><%= campground.description %></p>
 
-<a href="/index">Back to Campgrounds</a>
+<h4>Comments</h4>
+<ul id="comments-list">
+    <% campground.comments.forEach(function(comment) { %>
+        <li>"<%= comment.text %>" -<%= comment.author %> </li>
+    <% }) %>
+</ul>
+
+<br><a href="/index">Back to Campgrounds</a>
 
 <%- include("partials/footer"); %>
