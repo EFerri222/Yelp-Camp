@@ -1,16 +1,16 @@
 <%- include("../partials/header"); %>
 
-<div class="container">
+<div class="container text-center">
     <h1>Add New Comment to "<%= campground.name %>"</h1><br>
     <div class="row">
 
         <div style="width: 30%; margin: 0 auto;">
             <form action="/campgrounds/<%= campground._id %>/comments" method="POST">
                 <div class="form-group">
-                    <input class="form-control" type="text" name="author" placeholder="Author">
+                    <input class="form-control" type="text" name="comment[author]" placeholder="Author">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="text" placeholder="Comment goes here">
+                    <input class="form-control" type="text" name="comment[text]" placeholder="Comment goes here">
                 </div>
                 <div class="form-group">
                     <button class="btn btn-lg btn-primary btn-block">Submit</button>
@@ -22,6 +22,8 @@
 
 </div>
 
-<a href="/campgrounds/<%= campground._id %>">Go Back</a>
+<div class="text-center">
+    <a href="/campgrounds/<%= campground._id %>">Go Back</a>
+</div>
 
 <%- include("../partials/footer"); %>

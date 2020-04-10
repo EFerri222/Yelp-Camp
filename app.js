@@ -10,7 +10,8 @@ mongoose.connect('mongodb://localhost:27017/YelpCamp', {useNewUrlParser: true, u
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
-app.use(express.static("public"));
+// Start from the name of the directory that this script lives in
+app.use(express.static(__dirname + "public"));
 
 seedDB();
 
@@ -39,10 +40,7 @@ app.get("/campgrounds/new", (req,res) => {
 // CREATE ROUTE - add new campground to db
 app.post("/campgrounds", (req,res) => {
     // Grab data from form
-    var name = req.body.name;
-    var image = req.body.image;
-    var description = req.body.description;
-    var newCampground = {name: name, image: image, description: description};
+    var newCampground = req.body.campground;
     // Create new campground and save to DB
     Campground.create(newCampground, function(err,campground) {
         if(err) {
@@ -88,11 +86,8 @@ app.get("/campgrounds/:id/comments/new", (req,res) => {
 app.post("/campgrounds/:id/comments", (req,res) => {
     // Grab id from param
     var id = req.params.id;
-    
     // Grab data from form
-    var text = req.body.text;
-    var author = req.body.author;
-    var newComment = {text: text, author: author};
+    var newComment = req.body.comment;
     // Find campground to attach comment to
     Campground.findById(id, function(err,campground) {
         if(err) {
@@ -113,7 +108,6 @@ app.post("/campgrounds/:id/comments", (req,res) => {
         }
     });
 });
-
 
 app.get("/*", (req,res) => {
     res.render("page-not-found");
