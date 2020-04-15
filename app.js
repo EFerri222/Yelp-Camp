@@ -107,8 +107,11 @@ app.get("/campgrounds/:id/comments/new", isLoggedIn, (req,res) => {
 app.post("/campgrounds/:id/comments", isLoggedIn, (req,res) => {
     // Grab id from param
     var id = req.params.id;
-    // Grab data from form
-    var newComment = req.body.comment;
+    // Grab text from form and use username of currently logged in user
+    var newComment = {
+        text: req.body.text,
+        author: req.user.username
+    }
     // Find campground to attach comment to
     Campground.findById(id, function(err,campground) {
         if(err) {
