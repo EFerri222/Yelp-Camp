@@ -41,7 +41,7 @@ app.get("/", (req,res) => {
 });
 
 // INDEX ROUTE - show all campgrounds
-app.get("/index", (req,res) => {
+app.get("/campgrounds", (req,res) => {
     // Retrieve all campgrounds from DB
     Campground.find({}, function(err,campgrounds) {
         if(err) {
@@ -68,7 +68,7 @@ app.post("/campgrounds", (req,res) => {
             console.log(err);
         } else {
             // Redirect to campgrounds page
-            res.redirect("/index");
+            res.redirect("/campgrounds");
         }
     });
 });
@@ -152,7 +152,7 @@ app.post("/register", (req,res) => {
         } else {
             // Log them in
             passport.authenticate("local")(req, res, () => {
-                res.redirect("/index");
+                res.redirect("/campgrounds");
             });
         }
     });
@@ -166,7 +166,7 @@ app.get("/login", (req,res) => {
 // Handle login logic
 app.post("/login", passport.authenticate("local",
     {
-        successRedirect: "/index",
+        successRedirect: "/campgrounds",
         failureRedirect: "/login"
     }), (req,res) => {
 });
@@ -174,7 +174,7 @@ app.post("/login", passport.authenticate("local",
 // Logout route
 app.get("/logout", (req,res) => {
     req.logout();
-    res.redirect("/index");
+    res.redirect("/campgrounds");
 });
 
 // Handle undefined routes
