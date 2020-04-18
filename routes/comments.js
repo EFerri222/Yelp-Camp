@@ -18,12 +18,15 @@ router.get("/new", isLoggedIn, (req,res) => {
 
 // CREATE ROUTE - Add new comment to campground
 router.post("/", isLoggedIn, (req,res) => {
-    // Grab id from param
+    // Grab id of campground from param
     var id = req.params.id;
-    // Grab text from form and use username of currently logged in user
+    // Grab text from form and use id/username of currently logged in user
     var newComment = {
         text: req.body.text,
-        author: req.user.username
+        author: {
+            id: req.user._id,
+            username: req.user.username
+        }
     }
     // Find campground to attach comment to
     Campground.findById(id, function(err,campground) {

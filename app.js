@@ -16,10 +16,10 @@ mongoose.connect('mongodb://localhost:27017/YelpCamp', {useNewUrlParser: true, u
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
-// ___dirname - start from the name of the directory that this script lives in
+// __dirname - start from the name of the directory that this script lives in
 app.use(express.static(__dirname + "public"));
 
-seedDB();
+// seedDB();
 
 // PASSPORT CONFIG
 app.use(require("express-session")({
