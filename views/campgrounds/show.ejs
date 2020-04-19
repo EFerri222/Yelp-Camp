@@ -17,6 +17,7 @@
                 <span class="float-right"><strong>$9.00/night</strong></span>
                 <p class="card-text"><%= campground.description %></p>
                 <p style="font-size: 0.8em;"><em>Submitted by <%= campground.creator.username %></em></p>
+                <a class="btn btn-warning" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
             </div>
             <img src="<%= campground.image %>" class="card-img-top" alt="Campground Image">
             </div>

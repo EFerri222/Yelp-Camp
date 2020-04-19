@@ -1,23 +1,27 @@
-var express       = require("express"),
-    app           = express(),
-    bodyParser    = require("body-parser"),
-    mongoose      = require("mongoose"),
-    passport      = require("passport"),
-    LocalStrategy = require("passport-local"),
-    User          = require("./models/user"),
-    seedDB        = require("./seeds")
+var express        = require("express"),
+    app            = express(),
+    bodyParser     = require("body-parser"),
+    mongoose       = require("mongoose"),
+    passport       = require("passport"),
+    LocalStrategy  = require("passport-local"),
+    methodOverride = require("method-override"),
+    User           = require("./models/user"),
+    seedDB         = require("./seeds")
 
 // Require routes
 var campgroundRoutes = require("./routes/campgrounds"),
     commentRoutes    = require("./routes/comments"),
     indexRoutes      = require("./routes/index")
 
+// APP CONFIG
 mongoose.connect('mongodb://localhost:27017/YelpCamp', {useNewUrlParser: true, useUnifiedTopology: true});
-
+mongoose.set('useFindAndModify', false);
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 // __dirname - start from the name of the directory that this script lives in
 app.use(express.static(__dirname + "public"));
+// What to look for in query string
+app.use(methodOverride("_method"));
 
 // seedDB();
 

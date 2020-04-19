@@ -20,7 +20,7 @@ router.get("/new", isLoggedIn, (req,res) => {
     res.render("campgrounds/new");
 });
 
-// CREATE ROUTE - add new campground to db
+// CREATE ROUTE - add new campground to db, then redirect to /campgrounds
 router.post("/", isLoggedIn, (req,res) => {
     // Grab data from form
     var newCampground = req.body.campground;
@@ -52,12 +52,44 @@ router.get("/:id", (req,res) => {
     });
 });
 
+// EDIT ROUTE - show edit form for one campground
+router.get("/:id/edit", isLoggedIn, isCorrectUser, (req,res) => {
+    Campground.findById(req.params.id, (err,campground) => {
+        if(err) {
+            throw err;
+        } else {
+            res.render("campgrounds/edit", {campground: campground});
+        }
+    });
+});
+
+// UPDATE ROUTE - update a particular campground, then redirect to that campground's show page
+router.put("/:id", isLoggedIn, isCorrectUser, (req,res) => {
+    // First argument is id, second is data to use for update
+    Campground.findByIdAndUpdate(req.params.id, req.body.campground, (err,campground) => {
+        if(err) {
+            throw err;
+        } else {
+            res.redirect("/campgrounds/" + req.params.id);
+        }
+    });
+});
+
 // Middleware
 function isLoggedIn(req, res, next) {
     if(req.isAuthenticated()) {
         return next();
     }
     res.redirect("/login");
+}
+
+function isCorrectUser(req, res, next) {
+    Campground.findById(req.params.id, (err, campground) => {
+        if(req.user.id == campground.creator.id) {
+            return next();
+        }
+        res.redirect("/");
+    })
 }
 
 module.exports = router;
