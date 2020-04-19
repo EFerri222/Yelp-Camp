@@ -75,6 +75,17 @@ router.put("/:id", isLoggedIn, isCorrectUser, (req,res) => {
     });
 });
 
+// DESTROY ROUTE - delete a particular campground, then redirect to /campgrounds
+router.delete("/:id", isLoggedIn, isCorrectUser, (req,res) => {
+    Campground.findByIdAndRemove(req.params.id, (err,campground) => {
+        if(err) {
+            throw err;
+        } else {
+            res.redirect("/campgrounds");
+        }
+    });
+});
+
 // Middleware
 function isLoggedIn(req, res, next) {
     if(req.isAuthenticated()) {
