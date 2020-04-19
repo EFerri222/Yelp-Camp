@@ -96,7 +96,7 @@ function isLoggedIn(req, res, next) {
 
 function isCorrectUser(req, res, next) {
     Campground.findById(req.params.id, (err, campground) => {
-        if(req.user.id == campground.creator.id) {
+        if(req.user.id === campground.creator.id.toString()) {
             return next();
         }
         res.redirect("/");

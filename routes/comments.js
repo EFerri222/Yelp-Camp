@@ -49,12 +49,59 @@ router.post("/", isLoggedIn, (req,res) => {
     });
 });
 
+// EDIT ROUTE - show edit form for one comment
+router.get("/:commentid/edit", isLoggedIn, isCorrectUser, (req,res) => {
+    Campground.findById(req.params.id, (err,campground) => {
+        Comment.findById(req.params.commentid, (err,comment) => {
+            if(err) {
+                throw err;
+            } else {
+                res.render("comments/edit", {campground: campground, comment: comment});
+            }
+        });
+    })
+
+});
+
+// UPDATE ROUTE - update a particular comment, then redirect to its campground's show page
+router.put("/:commentid", isLoggedIn, isCorrectUser, (req,res) => {
+    // First argument is id, second is data to use for update
+    Comment.findByIdAndUpdate(req.params.commentid, {text: req.body.text}, (err,comment) => {
+        if(err) {
+            throw err;
+        } else {
+            comment.save();
+            res.redirect("/campgrounds/" + req.params.id);
+        }
+    });
+});
+
+// DESTROY ROUTE - delete a particular comment, then redirect to its campground's show page
+router.delete("/:commentid", isLoggedIn, isCorrectUser, (req,res) => {
+    Comment.findByIdAndRemove(req.params.commentid, (err,comment) => {
+        if(err) {
+            throw err;
+        } else {
+            res.redirect("/campgrounds/" + req.params.id);
+        }
+    });
+});
+
 // Middleware
 function isLoggedIn(req, res, next) {
     if(req.isAuthenticated()) {
         return next();
     }
     res.redirect("/login");
+}
+
+function isCorrectUser(req, res, next) {
+    Comment.findById(req.params.commentid, (err, comment) => {
+        if(req.user.id === comment.author.id.toString()) {
+            return next();
+        }
+        res.redirect("/");
+    })
 }
 
 module.exports = router;
