@@ -75,6 +75,17 @@ router.put("/:id", isLoggedIn, isCorrectUser, (req,res) => {
     });
 });
 
+// DESTROY CONFIRMATION ROUTE - show form that asks user to confirm deleting campground
+router.get("/:id/delete", isLoggedIn, isCorrectUser, (req,res) => {
+    Campground.findById(req.params.id, (err,campground) => {
+        if(err) {
+            throw err;
+        } else {
+            res.render("campgrounds/delete", {campground: campground});
+        }
+    });
+});
+
 // DESTROY ROUTE - delete a particular campground, then redirect to /campgrounds
 router.delete("/:id", isLoggedIn, isCorrectUser, (req,res) => {
     Campground.findByIdAndRemove(req.params.id, (err,campground) => {

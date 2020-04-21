@@ -17,11 +17,10 @@
                 <span class="float-right"><strong>$9.00/night</strong></span>
                 <p class="card-text"><%= campground.description %></p>
                 <p style="font-size: 0.8em;"><em>Submitted by <%= campground.creator.username %></em></p>
+                <!-- Only show edit and delete buttons if user who created campground is logged in -->
                 <% if(currentUser && (campground.creator.id == currentUser.id)) { %>
                 <a class="btn btn-warning mr-1" style="float: left;" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
-                <form action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
-                    <button class="btn btn-danger">Delete</button>
-                </form>
+                <a class="btn btn-danger" href="/campgrounds/<%= campground._id %>/delete">Delete</a>
                 <% } %>
             </div>
             <img src="<%= campground.image %>" class="card-img-top" alt="Campground Image">
@@ -32,6 +31,7 @@
                         <a href="/campgrounds/<%= campground._id %>/comments/new" class="btn btn-success">Leave a Review</a>
                     </div>
                     <hr>
+                    <!-- Loop through comments array and render each comment -->
                     <% campground.comments.forEach(function(comment) { %>
                         <div class="row">
                             <div class="col-md-12">

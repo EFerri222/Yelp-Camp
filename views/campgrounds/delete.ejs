@@ -1,0 +1,19 @@
+<%- include("../partials/header"); %>
+
+<div class="container text-center">
+    <h1>Are you sure you want to delete "<%= campground.name %>"?</h1>
+    <p>This will permanently delete this campground</p>
+    <div class="row">
+
+        <div style="width: 30%; margin: 0 auto;">
+            <form class="mb-2" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
+                <button class="btn btn-danger">Yes, Delete</button>
+            </form>
+            <a href="/campgrounds/<%= campground._id %>">Go Back</a>
+        </div>
+
+    </div>
+
+</div>
+
+<%- include("../partials/footer"); %>
