@@ -88,7 +88,7 @@ router.get("/:id/delete", isLoggedIn, isCorrectUser, (req,res) => {
 
 // DESTROY ROUTE - delete a particular campground, then redirect to /campgrounds
 router.delete("/:id", isLoggedIn, isCorrectUser, (req,res) => {
-    Campground.findByIdAndRemove(req.params.id, (err,campground) => {
+    Campground.findByIdAndRemove(req.params.id, (err) => {
         if(err) {
             throw err;
         } else {

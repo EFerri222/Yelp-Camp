@@ -19,7 +19,7 @@ mongoose.set('useFindAndModify', false);
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 // __dirname - start from the name of the directory that this script lives in
-app.use(express.static(__dirname + "public"));
+app.use(express.static(__dirname + "/public"));
 // What to look for in query string
 app.use(methodOverride("_method"));
 

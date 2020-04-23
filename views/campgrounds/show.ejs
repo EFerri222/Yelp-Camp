@@ -19,8 +19,8 @@
                 <p style="font-size: 0.8em;"><em>Submitted by <%= campground.creator.username %></em></p>
                 <!-- Only show edit and delete buttons if user who created campground is logged in -->
                 <% if(currentUser && (campground.creator.id == currentUser.id)) { %>
-                <a class="btn btn-warning mr-1" style="float: left;" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
-                <a class="btn btn-danger" href="/campgrounds/<%= campground._id %>/delete">Delete</a>
+                <a class="btn btn-sm btn-warning mr-1" href="/campgrounds/<%= campground._id %>/edit">Edit</a>
+                <a class="btn btn-sm btn-danger" href="/campgrounds/<%= campground._id %>/delete">Delete</a>
                 <% } %>
             </div>
             <img src="<%= campground.image %>" class="card-img-top" alt="Campground Image">
@@ -37,13 +37,13 @@
                             <div class="col-md-12">
                                 <strong><%= comment.author.username %></strong>
                                 <span class="float-right">10 days ago</span>
-                                <p><%= comment.text %></p>
+                                <p class="mb-1"><%= comment.text %></p>
+                                <!-- Only show edit and delete buttons if user who created comment is logged in -->
                                 <% if(currentUser && (comment.author.id == currentUser.id)) { %>
-                                <a class="btn btn-sm btn-warning mr-1" style="float: left;" href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">Edit</a>
-                                <form action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
-                                    <button class="btn btn-sm btn-danger">Delete</button>
-                                </form>
+                                <a class="btn btn-sm btn-warning mr-1" href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">Edit</a>
+                                <a class="btn btn-sm btn-danger" href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/delete">Delete</a>
                                 <% } %>
+                                <hr>
                             </div>
                         </div>
                     <% }) %>

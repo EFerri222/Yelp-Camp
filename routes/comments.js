@@ -76,6 +76,23 @@ router.put("/:commentid", isLoggedIn, isCorrectUser, (req,res) => {
     });
 });
 
+// DESTROY CONFIRMATION ROUTE - show form that asks user to confirm deleting campground
+router.get("/:commentid/delete", isLoggedIn, isCorrectUser, (req,res) => {
+    Campground.findById(req.params.id, (err,campground) => {
+        if(err) {
+            throw err;
+        } else {
+            Comment.findById(req.params.commentid, (err,comment) => {
+                if(err) {
+                    throw err;
+                } else {
+                    res.render("comments/delete", {campground: campground, comment: comment});
+                }
+            });
+        }
+    });
+});
+
 // DESTROY ROUTE - delete a particular comment, then redirect to its campground's show page
 router.delete("/:commentid", isLoggedIn, isCorrectUser, (req,res) => {
     Comment.findByIdAndRemove(req.params.commentid, (err,comment) => {
