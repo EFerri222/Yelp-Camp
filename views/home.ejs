@@ -1,11 +1,34 @@
-<%- include("partials/header"); %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/landing.css">
+  <title>YelpCamp</title>
+</head>
+<body>
 
-<div class="jumbotron text-center" style="background-color: cornflowerblue;">
-    <h1 class="display-1">Welcome to YelpCamp <i class="fas fa-campground"></i></h1>
-    <p class="lead">Find the best campgrounds out there!</p>
-    <hr class="my-4">
-    <a class="btn btn-info btn-lg" href="/campgrounds" role="button">View Campgrounds</a>
-    <a class="btn btn-info btn-lg" href="/campgrounds/new" role="button">Add New Campground</a>
+  <div class="container">
+    <% if(errorMessage && errorMessage.length > 0) { %>
+      <div class="alert alert-danger" role="alert"><%= errorMessage %></div>
+    <% } else if(successMessage && successMessage.length > 0) { %>
+    <div class="alert alert-success" role="alert"><%= successMessage %></div>
+    <% } %>
   </div>
 
-<%- include("partials/footer"); %>
+  <div id="landing-header">
+    <h1>Welcome to YelpCamp!</h1>
+    <a class="btn btn-lg btn-success" href="/campgrounds">View All Campgrounds</a>
+  </div>
+
+  <ul class="slideshow">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+  
+  <%- include("./partials/footer"); %>
