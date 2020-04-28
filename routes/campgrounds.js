@@ -37,7 +37,7 @@ router.post("/", middleware.isLoggedIn, (req,res) => {
             // Send flash message
             req.flash("success", "Campground created!");
             // Redirect to campgrounds page
-            res.redirect("/campgrounds");
+            res.redirect("/campgrounds/" + campground.id);
         }
     });
 });
