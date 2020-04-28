@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router({mergeParams: true});
 var Campground = require("../models/campground");
 var Comment = require("../models/comment");
-var middleware = require("../middleware/index");
+var middleware = require("../middleware");
 
 // NEW ROUTE - Show form to create new comment
 router.get("/new", middleware.isLoggedIn, (req,res) => {
@@ -42,6 +42,8 @@ router.post("/", middleware.isLoggedIn, (req,res) => {
                     // Add to campground and save to DB
                     campground.comments.push(comment);
                     campground.save();
+                    // Send flash message
+                    req.flash("success", "Comment added!");
                     // Redirect to campground show page
                     res.redirect("/campgrounds/" + id);
                 }
@@ -100,6 +102,7 @@ router.delete("/:commentid", middleware.checkCommentOwnership, (req,res) => {
         if(err) {
             throw err;
         } else {
+            req.flash("success", "Comment removed!");
             res.redirect("/campgrounds/" + req.params.id);
         }
     });

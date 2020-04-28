@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var Campground = require("../models/campground");
-var middleware = require("../middleware/index");
+var middleware = require("../middleware");
 
 // INDEX ROUTE - show all campgrounds
 router.get("/", (req,res) => {
@@ -34,6 +34,8 @@ router.post("/", middleware.isLoggedIn, (req,res) => {
             campground.creator.id = req.user._id;
             campground.creator.username = req.user.username;
             campground.save();
+            // Send flash message
+            req.flash("success", "Campground created!");
             // Redirect to campgrounds page
             res.redirect("/campgrounds");
         }
@@ -93,6 +95,7 @@ router.delete("/:id", middleware.checkCampgroundOwnership, (req,res) => {
         if(err) {
             throw err;
         } else {
+            req.flash("success", "Campground removed!");
             res.redirect("/campgrounds");
         }
     });

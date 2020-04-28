@@ -2,6 +2,7 @@ var express        = require("express"),
     app            = express(),
     bodyParser     = require("body-parser"),
     mongoose       = require("mongoose"),
+    flash          = require("connect-flash"),
     passport       = require("passport"),
     LocalStrategy  = require("passport-local"),
     methodOverride = require("method-override"),
@@ -22,6 +23,7 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 // What to look for in query string
 app.use(methodOverride("_method"));
+app.use(flash());
 
 // seedDB();
 
@@ -37,9 +39,11 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// Pass req.user into every route as currentUser for any ejs templates that need to be rendered
+// Pass these values into every route as variables for any ejs templates that need to be rendered
 app.use((req, res, next) => {
     res.locals.currentUser = req.user;
+    res.locals.errorMessage = req.flash("error");
+    res.locals.successMessage = req.flash("success");
     next();
 });
 
