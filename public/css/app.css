@@ -1,5 +1,5 @@
 /* body {
-    text-align: center;
+    background-color: beige;
 } */
 
 #comments-list {
@@ -10,3 +10,12 @@
 /* .delete-form {
     display: inline;
 } */
+
+.jumbotron {
+    background-image: url("/images/jumbotron-bg.jpg");
+    color: white;
+}
+
+.card-body {
+    background-color: beige;
+}
